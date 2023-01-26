@@ -29,3 +29,20 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Route::prefix('admin')->name('admin.')->group(function(){
+//     require __DIR__.'/admin.php';
+// });
+
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->middleware(['auth:admin'])->name('dashboard');
+
+    Route::get('/user-register', function () {
+        return view('admin.user-register');
+    })->middleware(['auth:admin'])->name('user-register');
+
+    require __DIR__.'/admin.php';
+});
